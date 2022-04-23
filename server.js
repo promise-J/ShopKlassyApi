@@ -13,8 +13,12 @@ const app = express()
 
 
 app.use(cors({
-    origin: true,
+    origin: [
+        'https://shopklassy.netlify.app',
+        'http://localhost:3000'
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'DELETE']
     // origin: "http://localhost:3000"
     
 }))
@@ -40,7 +44,7 @@ app.use(session({
     }),
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        domain: 'https://shopklassyapi.herokuapp.com',
+        domain: 'https://shopklassy.netlify.app',
         // httpOnly: true,
         secure: true,
         sameSite: "none"
