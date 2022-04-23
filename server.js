@@ -40,7 +40,7 @@ app.use(session({
     }),
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        domain: 'mydomain.com',
+        domain: 'https://shopklassy.netlify.app',
         // httpOnly: true,
         secure: true,
         sameSite: "none"
