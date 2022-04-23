@@ -14,7 +14,7 @@ const app = express()
 
 app.use(cors({
     origin: true,
-    credentials: true
+    credentials: true,
     // origin: "http://localhost:3000"
     
 }))
@@ -40,15 +40,13 @@ app.use(session({
     }),
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
+        domain: 'mydomain.com',
         httpOnly: true,
-        // secure: true,
-        // sameSite: "none"
+        secure: true,
+        sameSite: "none"
     }
 }))
 
-if(process.env.NODE_ENV==='production'){
-    app.use(express.static('client/build'));
-}
 
 
 
