@@ -28,5 +28,8 @@
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
     "stripe": "^8.191.0"
+  },
+  "engines": {
+    "node": "14.16.1"
   }
 }
