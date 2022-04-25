@@ -15,7 +15,8 @@ const app = express()
 app.use(cors({
     origin: [
         'https://shopklassy.netlify.app',
-        'http://localhost:3000'
+        'http://localhost:3000',
+        'http://localhost:3001'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'DELETE']
@@ -45,13 +46,11 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         domain: 'https://shopklassy.netlify.app',
-        // httpOnly: true,
-        secure: true,
-        sameSite: "none"
+        httpOnly: true,
+        // secure: true,
+        // sameSite: "none"
     }
 }))
-
-
 
 
 app.use('/auth', require('./routes/auth'))

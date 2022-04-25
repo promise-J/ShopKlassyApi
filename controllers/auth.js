@@ -32,14 +32,14 @@ module.exports = {
     if (!user) return res.status(400).json('User does not exists')
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) return res.status(400).json('Wrong Credential')
-    // const {password: userPass, ...other} = user._doc
-    // const accessToken = jwt.sign({id: other._id, isAdmin: other.isAdmin}, process.env.JWT_SECRET, {expiresIn: '3d'})
-    req.session.userId = user._id
-    req.session.accessTime = new Date()
+    const {password: userPass, ...other} = user._doc
+    const accessToken = jwt.sign({id: other._id}, process.env.JWT_SECRET, {expiresIn: '3d'})
+    // req.session.userId = user._id
+    // req.session.accessTime = new Date()
     // console.log(user._id, " from authCtrl")
-    await req.session.save()
+    // await req.session.save()
 
-    return res.status(200).json(user)
+    return res.status(200).json({accessToken, user})
   },
   getUserInfo: async (req, res) => {
     const currentUser = req.user;
