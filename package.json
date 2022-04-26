@@ -26,7 +26,8 @@
     "mongoose": "^6.0.13",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
-    "stripe": "^8.191.0"
+    "stripe": "^8.191.0",
+    "twilio": "^3.76.1"
   },
   "engines": {
     "node": "14.16.1"

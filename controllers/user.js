@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const Product = require('../models/Product')
 const bcrypt = require('bcrypt')
+const TwilioMessenger = require('../utils/twillo')
 
 module.exports = {
     updateUser: async(req, res)=>{
@@ -164,6 +165,43 @@ module.exports = {
         } catch (error) {
             return res.status(500).json(error)
         }
+    },
+    generateVerificationCode: async(req, res)=>{
+        const {phoneNumber} = req.body
+        if(!phoneNumber) return res.status(400).json('Enter Phone Number')
+        const code = Math.floor(Math.random() * 1000000)
+        await User.findByIdAndUpdate(req.user._id, {$set: {vcode: code, phoneNumber}}, {new: true})
+        TwilioMessenger(`Your verification code is ${code}`, '+2348111158225')
+        res.status(200).json(`Code generated ${code}`)
+    },
+    verify: async(req, res)=>{
+        const {code} = req.body
+        try {
+            if(!code) return res.status(400).json('Provide a code')
+            if(req.user.vcode.toString() !== code){
+                res.status(400).json('Account not Verified')
+            }
+            const user = await User.findByIdAndUpdate(req.user._id, {$set: {status: 'active'}}, {new: true})
+            return res.status(200).json({result: 'Account Verified', user})
+        } catch (error) {
+            return res.status(500).json(error)
+        }
+    },
+    deactivateUser: async(req, res)=>{
+        const {email} = req.body
+        try {
+            if(!email) return res.status(400).json('Please provide an email')
+            const user = await User.findOne({email})
+            await User.findOneAndUpdate({email}, {$set: {status: 'pending', vcode: ''}})
+            return res.status(200).json(`Account ${user.email} deactivated`)
+        } catch (error) {
+            return res.status(500).json(error)
+        }
     }
 }
 
+function OtpGenerator(phoneNumber){
+    for(let i = 0; i < 6; i++){
+
+    }
+}

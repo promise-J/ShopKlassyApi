@@ -26,7 +26,11 @@ const UserSchema = mongoose.Schema({
             quantity: {type: Number}
         }
     ],
-    img: {type: String, default: "https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png"}
+    phoneNumber: {type: String},
+    noOfReferrals: {type: Number},
+    refBalance: {type: Number},
+    img: {type: String, default: "https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png"},
+    vcode: {type: Number}
 },{timestamps: true}, opts)
 
 UserSchema.set("toJSON", {
